@@ -4,6 +4,8 @@ const actionNamespace = createActionNamespace("liveData");
 
 export const LIVEDATA_RECEIVED = actionNamespace("LIVEDATA_RECEIVED");
 
+export const getLiveData = state => state.liveData;
+
 const initialState = {
   provider: {},
   map: {},
