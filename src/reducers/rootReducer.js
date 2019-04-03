@@ -1,3 +1,4 @@
 import { combineReducers } from "redux";
+import liveData from "./liveDataReducer";
 
-export default combineReducers({});
+export default combineReducers({ liveData });
