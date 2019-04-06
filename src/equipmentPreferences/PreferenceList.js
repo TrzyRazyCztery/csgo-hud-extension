@@ -14,8 +14,8 @@ const PreferenceList = ({ preferenceList, updatePreference }) => {
           $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
         })
       );
-      updatePreference(cards);
     };
+    updatePreference(cards);
     return (
       <div style={style}>
         {cards.map((card, i) => (
