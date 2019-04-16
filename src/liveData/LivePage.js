@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getLiveData } from "../reducers/liveDataReducer";
 import _ from "lodash";
+import { startReceivingData } from "../liveData/liveDataActions";
 
 export class LivePage extends Component {
   constructor(props) {
@@ -32,6 +33,14 @@ export class LivePage extends Component {
             ))}
           </ul>
         </ul>
+        <button
+          onClick={() => {
+            this.props.startReceivingData();
+          }}
+        >
+          {" "}
+          Establish Connection{" "}
+        </button>
       </div>
     );
   }
@@ -41,4 +50,10 @@ const mapStateToProps = state => ({
   liveData: getLiveData(state)
 });
 
-export default connect(mapStateToProps)(LivePage);
+const mapDistpachToProps = dispatch => ({
+  startReceivingData: () => dispatch(startReceivingData)
+});
+export default connect(
+  mapStateToProps,
+  mapDistpachToProps
+)(LivePage);

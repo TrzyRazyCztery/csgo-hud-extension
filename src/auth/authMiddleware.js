@@ -3,15 +3,18 @@ export const authMiddleware = store => next => action => {
     const fetchApi = (url, fetchParams) => {
       const state = store.getState();
       const token = state.auth.token;
-      const newParams = {
-        ...fetchParams,
-        headers: {
-          ...fetchParams.headers,
-          Authorization: `Bearer ${token}`
-        }
-      };
+      const newParams = token
+        ? {
+            ...fetchParams,
+            headers: {
+              ...fetchParams.headers,
+              Authorization: `Bearer ${token}`
+            }
+          }
+        : fetchParams;
       return fetch(url, newParams);
     };
+    return action.request(fetchApi);
   } else {
     return next(action);
   }
