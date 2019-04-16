@@ -14,7 +14,11 @@ export const SinglePreferenceCategory = ({
     {preferenceCategory}
     <PreferenceList
       preferenceList={preferenceList}
+<<<<<<< HEAD
       updatePreference={debounce(updatePreference(preferenceCategory), 500)}
+=======
+      updatePreference={debounce(updatePreference(preferenceCategory), 400)}
+>>>>>>> e408de446308155f754fd0ef68afb8693158185d
     />
   </div>
 );
