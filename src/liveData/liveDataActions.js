@@ -1,5 +1,5 @@
 import { LIVEDATA_RECEIVED } from "../reducers/liveDataReducer";
-
+import { notifyError } from "../shared/notificationActions";
 const livedataReceived = liveData => ({ type: LIVEDATA_RECEIVED, liveData });
 
 export const startReceivingData = async dispatch => {
@@ -18,7 +18,9 @@ export const startReceivingData = async dispatch => {
       const parsedEventData = parseEventData(event.data);
       dispatch(livedataReceived(parsedEventData));
     };
-  } catch {}
+  } catch (err) {
+    dispatch(notifyError(err));
+  }
 };
 
 const parseEventData = eventData => JSON.parse(eventData);

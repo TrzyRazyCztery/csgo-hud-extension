@@ -9,8 +9,8 @@ class Content extends Component {
     return (
       <div className="content">
         <Router>
-          <Route path="/live" component={LivePage} />
-          <Route exact path="/" component={EquipmentPreferences} />
+          <Route path="/equippref" component={EquipmentPreferences} />
+          <Route exact path="/" component={LivePage} />
           <Route path="/login_success" component={LoginSuccess} />
         </Router>
       </div>
