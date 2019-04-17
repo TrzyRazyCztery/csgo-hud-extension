@@ -4,11 +4,8 @@
   "private": true,
   "dependencies": {
     "immutability-helper": "^3.0.0",
-<<<<<<< HEAD
     "jsonwebtoken": "^8.5.1",
     "node-sass": "^4.11.0",
-=======
->>>>>>> e408de446308155f754fd0ef68afb8693158185d
     "react": "^16.8.6",
     "react-dnd": "^7.4.5",
     "react-dnd-html5-backend": "^7.4.4",
