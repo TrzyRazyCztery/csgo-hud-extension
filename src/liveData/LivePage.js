@@ -3,10 +3,14 @@ import { connect } from "react-redux";
 import { getLiveData } from "../reducers/liveDataReducer";
 import _ from "lodash";
 import { startReceivingData } from "../liveData/liveDataActions";
+import Bomb from "./bomb/Bomb";
 
 export class LivePage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      bomb: false
+    };
   }
   render() {
     const { map, provider, player, round } = this.props.liveData;
@@ -41,6 +45,8 @@ export class LivePage extends Component {
           {" "}
           Establish Connection{" "}
         </button>
+        <button onClick={() => this.setState({ bomb: !this.state.bomb })} />
+        <Bomb />
       </div>
     );
   }
