@@ -7,6 +7,7 @@ export const BOMB_PLANTED = actionNamespace("BOMB_PLANTED");
 export const BOMB_EXPLODED = actionNamespace("BOMB_EXPLODED");
 export const BOMB_DEFUSED = actionNamespace("BOMB_DEFUSED");
 export const BOMB_NOT_PLANTED = actionNamespace("BOMB_NOT_PLANTED");
+export const ROUND_BONUS_UPDATED = actionNamespace("ROUND_BONUS_UPDATED");
 
 export const getLiveData = state => state.liveData;
 export const getBombState = state => state.liveData.roundState.bomb;
@@ -15,6 +16,16 @@ const initialState = {
   roundState: {
     state: null,
     bomb: null
+  },
+  roundBonus: {
+    counterTerrorist: {
+      win: null,
+      lose: null
+    },
+    terrorist: {
+      win: null,
+      lose: null
+    }
   },
   provider: {},
   map: {},
@@ -50,6 +61,12 @@ const liveDataReducer = (state = initialState, action) => {
       return {
         ...state,
         roundState: { ...state.roundState, bomb: "NOT_PLANTED" }
+      };
+    }
+    case ROUND_BONUS_UPDATED: {
+      return {
+        ...state,
+        roundBonus: action.roundBonus || state.roundBonus
       };
     }
     default:
