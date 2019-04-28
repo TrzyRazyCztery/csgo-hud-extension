@@ -1,5 +1,6 @@
 import { ROUND_BONUS_UPDATED } from "../../reducers/liveDataReducer";
 import { streakBonuses, winMinimumBonus } from "./roundBonusValues";
+import { merge } from "lodash";
 
 const roundBonusUpdated = roundBonus => ({
   type: ROUND_BONUS_UPDATED,
@@ -13,9 +14,10 @@ const calculateRoundBonusPrediction = losingStreak => ({
 
 export const roundBonus = ({ map, round, previously }) => dispatch => {
   const { team_ct, team_t, round: roundNumber } = map;
+  const _previously = merge({ round: { phase: null } }, previously);
   if (
     round.phase === "freezetime" &&
-    ((previously && previously.round && previously.round.phase === "over") ||
+    (_previously.round.phase === "over" ||
       roundNumber === 0 ||
       roundNumber === 16)
   ) {

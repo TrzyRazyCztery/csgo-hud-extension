@@ -1,3 +1,4 @@
+import { merge } from "lodash";
 import {
   BOMB_DEFUSED,
   BOMB_EXPLODED,
@@ -11,7 +12,10 @@ const bombExploded = () => ({ type: BOMB_EXPLODED });
 const bombNotPlanted = () => ({ type: BOMB_NOT_PLANTED });
 
 export const bombStatus = ({ round, previously, added }) => dispatch => {
-  if (previously && previously.round && previously.round.phase) {
+  const _previously = merge({ round: { phase: null } }, previously);
+  const _added = merge({ round: { bomb: null } }, added);
+
+  if (_previously.round.phase) {
     if (round.phase === "freezetime") {
       return dispatch(bombNotPlanted());
     }
@@ -24,7 +28,7 @@ export const bombStatus = ({ round, previously, added }) => dispatch => {
       }
     }
   }
-  if (added && added.round && added.round.bomb) {
+  if (_added.round.bomb) {
     return dispatch(bombPlanted());
   }
 };
