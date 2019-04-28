@@ -4,6 +4,7 @@ import { bombStatus } from "./bomb/bombActions";
 import { roundBonus } from "./roundBonus/roundBonusActions";
 import { moneyBalance } from "./money/moneyActions";
 import { roundPhase } from "./roundPhase/roundPhaseActions";
+import { equipment } from "./equipment/equipmentActions";
 
 const livedataReceived = liveData => ({ type: LIVEDATA_RECEIVED, liveData });
 
@@ -23,14 +24,17 @@ export const startReceivingData = async dispatch => {
     );
     liveDataSource.onmessage = event => {
       const parsedEventData = parseEventData(event.data);
-      //dispatch(livedataReceived(parsedEventData));
+      console.log(parsedEventData);
       dispatch(bombStatus(parsedEventData));
       dispatch(roundBonus(parsedEventData));
       dispatch(moneyBalance(parsedEventData));
       dispatch(roundPhase(parsedEventData));
+      dispatch(equipment(parsedEventData));
     };
+    return true;
   } catch (err) {
     dispatch(notifyError(err));
+    throw err;
   }
 };
 

@@ -10,7 +10,9 @@ export const BOMB_NOT_PLANTED = actionNamespace("BOMB_NOT_PLANTED");
 export const ROUND_BONUS_UPDATED = actionNamespace("ROUND_BONUS_UPDATED");
 export const MONEY_BALANCE_UPDATED = actionNamespace("MONEY_BALANCE_UPDATED");
 export const ROUND_PHASE_UPDATED = actionNamespace("ROUND_PHASE_UPDATED");
+export const EQUIPMENT_UPDATED = actionNamespace("WEPONS_UPDATED");
 
+export const getEquipment = state => state.liveData.equipment;
 export const getRoundPhase = state => state.liveData.roundState.phase;
 export const getLiveData = state => state.liveData;
 export const getBombState = state => state.liveData.roundState.bomb;
@@ -29,6 +31,13 @@ const initialState = {
       win: null,
       lose: null
     }
+  },
+  equipment: {
+    c4: null,
+    pistol: null,
+    defusekit: null,
+    primaryWeapon: null,
+    grenades: []
   },
   moneyBalance: null,
   provider: {},
@@ -83,6 +92,12 @@ const liveDataReducer = (state = initialState, action) => {
       return {
         ...state,
         roundState: { ...state.roundState, phase: action.roundPhase }
+      };
+    }
+    case EQUIPMENT_UPDATED: {
+      return {
+        ...state,
+        equipment: { ...action.equipment }
       };
     }
     default:

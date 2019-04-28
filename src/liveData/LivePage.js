@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getLiveData, getRoundPhase } from "../reducers/liveDataReducer";
+import {
+  getLiveData,
+  getRoundPhase,
+  getEquipment
+} from "../reducers/liveDataReducer";
 import _ from "lodash";
 import { startReceivingData } from "../liveData/liveDataActions";
 import Bomb from "./bomb/Bomb";
@@ -11,6 +15,14 @@ export class LivePage extends Component {
     this.state = {
       bomb: false
     };
+  }
+  componentDidMount() {
+    const establishingConnection = setInterval(() => {
+      try {
+        this.props.startReceivingData();
+        clearInterval(establishingConnection);
+      } catch (err) {}
+    }, 2000);
   }
   render() {
     const { map, provider, player, round } = this.props.liveData;
@@ -26,27 +38,12 @@ export class LivePage extends Component {
           </li>
           <li>Weapons:</li>
           <ul>
-            {_.map(player.weapons, (weapon, index) => (
-              <li key={index}>
-                {" "}
-                {weapon.name} :{" "}
-                {weapon.ammo_clip
-                  ? weapon.ammo_clip + "/" + weapon.ammo_clip_max
-                  : ""}{" "}
-              </li>
+            {_.map(this.props.equipment, (equipment, index) => (
+              <li key={index}>{JSON.stringify(equipment)}</li>
             ))}
           </ul>
           <li> Round phase: {this.props.roundPhase}</li>
         </ul>
-        <button
-          onClick={() => {
-            this.props.startReceivingData();
-          }}
-        >
-          {" "}
-          Establish Connection{" "}
-        </button>
-        <button onClick={() => this.setState({ bomb: !this.state.bomb })} />
         <Bomb />
       </div>
     );
@@ -55,7 +52,8 @@ export class LivePage extends Component {
 
 const mapStateToProps = state => ({
   liveData: getLiveData(state),
-  roundPhase: getRoundPhase(state)
+  roundPhase: getRoundPhase(state),
+  equipment: getEquipment(state)
 });
 
 const mapDistpachToProps = dispatch => ({
