@@ -9,13 +9,15 @@ export const BOMB_DEFUSED = actionNamespace("BOMB_DEFUSED");
 export const BOMB_NOT_PLANTED = actionNamespace("BOMB_NOT_PLANTED");
 export const ROUND_BONUS_UPDATED = actionNamespace("ROUND_BONUS_UPDATED");
 export const MONEY_BALANCE_UPDATED = actionNamespace("MONEY_BALANCE_UPDATED");
+export const ROUND_PHASE_UPDATED = actionNamespace("ROUND_PHASE_UPDATED");
 
+export const getRoundPhase = state => state.liveData.roundState.phase;
 export const getLiveData = state => state.liveData;
 export const getBombState = state => state.liveData.roundState.bomb;
 
 const initialState = {
   roundState: {
-    state: null,
+    phase: null,
     bomb: null
   },
   roundBonus: {
@@ -75,6 +77,12 @@ const liveDataReducer = (state = initialState, action) => {
       return {
         ...state,
         moneyBalance: action.moneyBalance || state.moneyBalance
+      };
+    }
+    case ROUND_PHASE_UPDATED: {
+      return {
+        ...state,
+        roundState: { ...state.roundState, phase: action.roundPhase }
       };
     }
     default:

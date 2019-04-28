@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getLiveData } from "../reducers/liveDataReducer";
+import { getLiveData, getRoundPhase } from "../reducers/liveDataReducer";
 import _ from "lodash";
 import { startReceivingData } from "../liveData/liveDataActions";
 import Bomb from "./bomb/Bomb";
@@ -36,6 +36,7 @@ export class LivePage extends Component {
               </li>
             ))}
           </ul>
+          <li> Round phase: {this.props.roundPhase}</li>
         </ul>
         <button
           onClick={() => {
@@ -53,7 +54,8 @@ export class LivePage extends Component {
 }
 
 const mapStateToProps = state => ({
-  liveData: getLiveData(state)
+  liveData: getLiveData(state),
+  roundPhase: getRoundPhase(state)
 });
 
 const mapDistpachToProps = dispatch => ({

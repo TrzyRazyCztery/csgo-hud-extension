@@ -3,6 +3,7 @@ import { notifyError } from "../shared/notificationActions";
 import { bombStatus } from "./bomb/bombActions";
 import { roundBonus } from "./roundBonus/roundBonusActions";
 import { moneyBalance } from "./money/moneyActions";
+import { roundPhase } from "./roundPhase/roundPhaseActions";
 
 const livedataReceived = liveData => ({ type: LIVEDATA_RECEIVED, liveData });
 
@@ -24,6 +25,7 @@ export const startReceivingData = async dispatch => {
       dispatch(bombStatus(parsedEventData));
       dispatch(roundBonus(parsedEventData));
       dispatch(moneyBalance(parsedEventData));
+      dispatch(roundPhase(parsedEventData));
     };
   } catch (err) {
     dispatch(notifyError(err));
