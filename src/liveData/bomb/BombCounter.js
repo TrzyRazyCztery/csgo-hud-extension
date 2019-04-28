@@ -28,7 +28,7 @@ class BombCounter extends Component {
   startCounting = () => {
     const intervalID = setInterval(this.tick, 100);
     const startPoint = moment();
-    const endPoint = moment().add(10, "seconds");
+    const endPoint = moment().add(40, "seconds");
     const timeLeft = calculateTimeLeft(endPoint);
     this.setState({
       startPoint,

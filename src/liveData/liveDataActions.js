@@ -12,7 +12,9 @@ export const startReceivingData = async dispatch => {
     const fetchedConnectionToken = await dispatch({
       type: "AUTHENTICATED_API_REQUEST",
       request: fetch => {
-        return fetch("http://localhost:3037/livedata/", { method: "GET" });
+        return fetch("http://localhost:3037/livedata/establish", {
+          method: "GET"
+        });
       }
     });
     const connectionToken = await fetchedConnectionToken.text();
@@ -21,7 +23,7 @@ export const startReceivingData = async dispatch => {
     );
     liveDataSource.onmessage = event => {
       const parsedEventData = parseEventData(event.data);
-      dispatch(livedataReceived(parsedEventData));
+      //dispatch(livedataReceived(parsedEventData));
       dispatch(bombStatus(parsedEventData));
       dispatch(roundBonus(parsedEventData));
       dispatch(moneyBalance(parsedEventData));
@@ -32,4 +34,4 @@ export const startReceivingData = async dispatch => {
   }
 };
 
-const parseEventData = eventData => JSON.parse(eventData);
+const parseEventData = eventData => JSON.parse(JSON.parse(eventData));

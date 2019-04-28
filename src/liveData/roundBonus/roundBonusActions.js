@@ -9,7 +9,7 @@ const roundBonusUpdated = roundBonus => ({
 
 const calculateRoundBonusPrediction = losingStreak => ({
   win: winMinimumBonus,
-  lose: streakBonuses[losingStreak + 1 > 5 ? 5 : losingStreak + 1]
+  lose: streakBonuses[losingStreak > 4 ? 4 : losingStreak]
 });
 
 export const roundBonus = ({ map, round, previously }) => dispatch => {
